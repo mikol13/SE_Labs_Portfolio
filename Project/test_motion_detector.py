@@ -29,6 +29,18 @@ class TestMotionDetector(unittest.TestCase):
 
 		self.assertTrue(result, "Failed to detect motion when a large object appeared!")
 
+	# Test 3
+	def test_motion_state_stays_detected(self):
+        frame1 = np.zeros((480, 640, 3), dtype=np.uint8)
+        frame2 = np.zeros((480, 640, 3), dtype=np.uint8)
+        cv2.rectangle(frame2, (200, 200), (400, 400), (255, 255, 255), -1)
+        frame3 = frame2.copy()
 
+        self.detector.process_frame(frame1)
+        self.detector.process_frame(frame2)
+        result = self.detector.process_frame(frame3)
+
+        self.assertTrue(result, "BUG: motion state flickered back to IDLE after detection!")
+        
  if __name__ == "__main__":
     unittest.main(verbosity=2)
