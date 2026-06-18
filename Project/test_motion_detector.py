@@ -17,6 +17,18 @@ class TestMotionDetector(unittest.TestCase):
         result = self.detector.process_frame(frame2)
 
         self.assertFalse(result, "Falsely detected motion on identical frames!")
+        
+    # Test 2
+	def test_motion_detected_on_visual_change(self):
+		frame1 = np.zeros((480, 640, 3), dtype=np.uint8)
+		frame2 = np.zeros((480, 640, 3), dtype=np.uint8)
+		cv2.rectangle(frame2, (200, 200), (400, 400), (255, 255, 255), -1)
+
+		self.detector.process_frame(frame1)
+		result = self.detector.process_frame(frame2)
+
+		self.assertTrue(result, "Failed to detect motion when a large object appeared!")
+
 
  if __name__ == "__main__":
     unittest.main(verbosity=2)
