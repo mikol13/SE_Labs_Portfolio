@@ -35,7 +35,7 @@ To ensure the system is reliable, the code was written using a **Test-Driven Dev
 ## Project Directory Structure
 
 ```text
-my_surveillance_project/
+Project/
 │
 ├── venv/                  # Your isolated Python environment
 ├── motion_detector.py     # The pure object logic (The "Brains")
